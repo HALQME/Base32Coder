@@ -1,10 +1,10 @@
 import Foundation
 
-struct Base32 {
+public struct Base32 {
     private static let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
     private static let padding = "="
     
-    static func encode(_ data: Data) -> String {
+    public static func encode(_ data: Data) -> String {
         var result = ""
         result.reserveCapacity(Int(ceil(Double(data.count) * 8 / 5)))
         
@@ -34,7 +34,7 @@ struct Base32 {
         return result
     }
     
-    static func decode(_ string: String) throws -> Data {
+    public static func decode(_ string: String) throws -> Data {
         let cleanedString = string.trimmingCharacters(in: .whitespaces).uppercased()
         guard cleanedString.allSatisfy({ alphabet.contains($0) || $0 == "=" }) else {
             throw Base32Error.invalidCharacter
@@ -69,7 +69,7 @@ struct Base32 {
         return result
     }
     
-    enum Base32Error: Error {
+    public enum Base32Error: Error {
         case invalidCharacter
         case invalidPadding
     }
